@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Buddy
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 4
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 2
+      generateMipMaps: 1
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 8192
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 690d25f59f13d8a40a361242305d73f3, type: 3}
+    totalSpriteSurfaceArea: 4112301
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: cb5948103dd645344acf549bb28930b4, type: 3}
+  - {fileID: 21300000, guid: 64db0794fbb4e134caca6acf5938fa96, type: 3}
+  - {fileID: 21300000, guid: 7ecc3b47f0c161a458512319ee690b50, type: 3}
+  - {fileID: 21300000, guid: 8e3cdb486ff600442adc33047bcc2fd4, type: 3}
+  - {fileID: 21300000, guid: f5f6573a6311cc44e93d29cc945f5680, type: 3}
+  - {fileID: 21300000, guid: 41e7731d144fa9f47a3d7ef89479bc3f, type: 3}
+  - {fileID: 21300000, guid: 56eed72e618c00c47a6f78c3ba45172b, type: 3}
+  - {fileID: 21300000, guid: 8c9e93ae0dc53e646a0806f978edcb2c, type: 3}
+  - {fileID: 21300000, guid: 0f38ce7fa9212ab4eae8ef47f237e924, type: 3}
+  - {fileID: 21300000, guid: 964fed8ff75dd5448964f05257770460, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Eye
+  - Blush
+  - Eye_glare_large
+  - Face
+  - Hair_front
+  - Hair_back
+  - Body
+  - Mouth_smile
+  - Ear
+  - Eye_glare_small
+  m_Tag: Buddy
+  m_IsVariant: 0
