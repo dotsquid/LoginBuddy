@@ -5,8 +5,6 @@ using TMPro;
 public class InputPlaceholderController : MonoBehaviour
 {
     [SerializeField]
-    private EmailTracker _emailTracker;
-    [SerializeField]
     private TMP_InputField _inputField;
     [SerializeField]
     private Transform _placeholderTransform;
@@ -21,12 +19,6 @@ public class InputPlaceholderController : MonoBehaviour
     private void Awake()
     {
         _maxPlaceholderScale = _placeholderTransform.localScale.x;
-        Subscribe();
-    }
-
-    private void OnDestroy()
-    {
-        Unsubscribe();
     }
 
     private void ScalePlaceholder(float endScale)
@@ -39,7 +31,7 @@ public class InputPlaceholderController : MonoBehaviour
         _tween = _placeholderTransform.DOScale(scale, duration);
     }
 
-    private void OnEmailFocusChanged(bool state)
+    private void OnFocusChanged(bool state)
     {
         if (string.IsNullOrEmpty(_inputField.text))
         {
@@ -50,13 +42,15 @@ public class InputPlaceholderController : MonoBehaviour
         }
     }
 
-    private void Subscribe()
+    #region Callbacks
+    public void OnFocus(string _)
     {
-        _emailTracker.onFocusChanged += OnEmailFocusChanged;
+        OnFocusChanged(true);
     }
 
-    private void Unsubscribe()
+    public void OnFocusOut(string _)
     {
-        _emailTracker.onFocusChanged -= OnEmailFocusChanged;
+        OnFocusChanged(false);
     }
+    #endregion
 }

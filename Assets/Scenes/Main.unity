@@ -602,12 +602,34 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   m_OnSelect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1430656280}
+        m_MethodName: OnFocus
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: TMPro.TMP_InputField+SelectionEvent, Unity.TextMeshPro, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_OnDeselect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1430656280}
+        m_MethodName: OnFocusOut
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: TMPro.TMP_InputField+SelectionEvent, Unity.TextMeshPro, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_OnTextSelection:
@@ -2339,11 +2361,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6838ad8292fc46b44a33a8a9ea7663fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emailTracker: {fileID: 1855244364}
   _inputField: {fileID: 260644129}
   _placeholderTransform: {fileID: 1744680470}
   _minPlaceholderScale: 0.4
-  _scaleSpeed: 5
+  _scaleSpeed: 2.5
 --- !u!1 &1442035020
 GameObject:
   m_ObjectHideFlags: 0
