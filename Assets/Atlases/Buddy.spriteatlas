@@ -43,11 +43,13 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 690d25f59f13d8a40a361242305d73f3, type: 3}
-    totalSpriteSurfaceArea: 4112301
+    totalSpriteSurfaceArea: 4843881
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: cb5948103dd645344acf549bb28930b4, type: 3}
+  - {fileID: 21300000, guid: 99cab013648fa0542888917984b11468, type: 3}
+  - {fileID: 21300000, guid: f8d51394dcb4e4d43a85d0891f68976b, type: 3}
   - {fileID: 21300000, guid: 64db0794fbb4e134caca6acf5938fa96, type: 3}
   - {fileID: 21300000, guid: 7ecc3b47f0c161a458512319ee690b50, type: 3}
   - {fileID: 21300000, guid: 8e3cdb486ff600442adc33047bcc2fd4, type: 3}
@@ -59,6 +61,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 964fed8ff75dd5448964f05257770460, type: 3}
   m_PackedSpriteNamesToIndex:
   - Eye
+  - Arm
+  - Fingers
   - Blush
   - Eye_glare_large
   - Face
