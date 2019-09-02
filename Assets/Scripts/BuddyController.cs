@@ -12,9 +12,13 @@ public class BuddyController : MonoBehaviour
     [SerializeField]
     private PasswordTracker _passwordTracker;
     [SerializeField]
+    private Transform _uiTransform;
+    [SerializeField]
     private Transform _eyesNormalCenter;
     [SerializeField]
     private float _lookForce = 1.2f;
+    [SerializeField]
+    private float _maxLookDistance = 700.0f;
 
     private void Awake()
     {
@@ -26,10 +30,12 @@ public class BuddyController : MonoBehaviour
         Unsubscribe();
     }
 
-    private float GetLookAngle(Vector2 targetPosition)
+    private (float, float) GetLookParams(Vector2 targetPosition)
     {
         var dir = targetPosition - (Vector2)_eyesNormalCenter.position;
-        return Mathf.Atan2(dir.y, dir.x);
+        var angle = Mathf.Atan2(dir.y, dir.x);
+        var distance = dir.magnitude / _uiTransform.lossyScale.x;
+        return (angle, distance);
     }
 
     private void OnEmailCaretMoved(Vector2 position)
@@ -50,9 +56,10 @@ public class BuddyController : MonoBehaviour
 
     private void OnInputCaretMoved(Vector2 position)
     {
-        var angle = GetLookAngle(position);
-        var horizontal = Mathf.Clamp(Mathf.Cos(angle) * _lookForce, -1.0f, 1.0f);
-        var vertical = Mathf.Clamp(Mathf.Sin(angle) * _lookForce, -1.0f, 1.0f);
+        var (angle, distance) = GetLookParams(position);
+        var distanceFactor = distance / _maxLookDistance * _lookForce;
+        var horizontal = Mathf.Clamp(Mathf.Cos(angle) * distanceFactor, -1.0f, 1.0f);
+        var vertical = Mathf.Clamp(Mathf.Sin(angle) * distanceFactor, -1.0f, 1.0f);
         _animator.SetFloat(kHorizontalFloatHash, horizontal);
         _animator.SetFloat(kVerticalFloatHash, vertical);
     }
