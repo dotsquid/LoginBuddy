@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class BuddyController : MonoBehaviour
 {
@@ -16,9 +17,14 @@ public class BuddyController : MonoBehaviour
     [SerializeField]
     private Transform _eyesNormalCenter;
     [SerializeField]
+    private Vector2 _lookVelocity = new Vector2(1.0f, 1.0f);
+    [SerializeField]
     private float _lookForce = 1.2f;
     [SerializeField]
     private float _maxLookDistance = 700.0f;
+
+    private Tween _horizontalTween;
+    private Tween _verticalTween;
 
     private void Awake()
     {
@@ -38,13 +44,27 @@ public class BuddyController : MonoBehaviour
         return (angle, distance);
     }
 
+    private void TurnHead(float horizontal, float vertical)
+    {
+        var horizontalDuration = Mathf.Abs(_animator.GetFloat(kHorizontalFloatHash) - horizontal) / _lookVelocity.x;
+        var verticalDuration = Mathf.Abs(_animator.GetFloat(kVerticalFloatHash) - vertical) / _lookVelocity.y;
+        var duration = Mathf.Max(horizontalDuration, verticalDuration);
+
+        _horizontalTween.KillSafe();
+        _verticalTween.KillSafe();
+        _horizontalTween = _animator.DOFloat(kHorizontalFloatHash, horizontal, duration);
+        _verticalTween = _animator.DOFloat(kVerticalFloatHash, vertical, duration);
+    }
+
     private void OnEmailCaretMoved(Vector2 position)
     {
         OnInputCaretMoved(position);
     }
 
     private void OnEmailFocusChanged(bool state)
-    { }
+    {
+        OnFocusLose();
+    }
 
     private void OnPasswordCaretMoved(Vector2 position)
     {
@@ -52,7 +72,9 @@ public class BuddyController : MonoBehaviour
     }
 
     private void OnPasswordFocusChanged(bool state)
-    { }
+    {
+        OnFocusLose();
+    }
 
     private void OnInputCaretMoved(Vector2 position)
     {
@@ -60,8 +82,12 @@ public class BuddyController : MonoBehaviour
         var distanceFactor = distance / _maxLookDistance * _lookForce;
         var horizontal = Mathf.Clamp(Mathf.Cos(angle) * distanceFactor, -1.0f, 1.0f);
         var vertical = Mathf.Clamp(Mathf.Sin(angle) * distanceFactor, -1.0f, 1.0f);
-        _animator.SetFloat(kHorizontalFloatHash, horizontal);
-        _animator.SetFloat(kVerticalFloatHash, vertical);
+        TurnHead(horizontal, vertical);
+    }
+
+    private void OnFocusLose()
+    {
+        TurnHead(0.0f, 0.0f);
     }
 
     private void Subscribe()
