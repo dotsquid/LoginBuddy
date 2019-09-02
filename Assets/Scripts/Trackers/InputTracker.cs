@@ -2,7 +2,7 @@
 using UnityEngine;
 using TMPro;
 
-public class EmailTracker : MonoBehaviour
+public class InputTracker : MonoBehaviour
 {
     public event Action<bool> onFocusChanged;
     public event Action<Vector2> onCaretMoved;
@@ -45,12 +45,14 @@ public class EmailTracker : MonoBehaviour
 
     private void OnSelect(string _)
     {
+        enabled = true;
         onFocusChanged?.Invoke(true);
     }
 
     private void OnDeselect(string _)
     {
         onFocusChanged?.Invoke(false);
+        enabled = false;
     }
 
     private void Subscribe()
