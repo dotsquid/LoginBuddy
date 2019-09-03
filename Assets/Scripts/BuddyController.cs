@@ -5,6 +5,7 @@ public class BuddyController : MonoBehaviour
 {
     private static readonly int kHorizontalFloatHash = Animator.StringToHash("Horizontal");
     private static readonly int kVerticalFloatHash = Animator.StringToHash("Vertical");
+    private static readonly int kIsHidingBoolHash = Animator.StringToHash("IsHiding");
 
     [SerializeField]
     private Animator _animator;
@@ -56,24 +57,42 @@ public class BuddyController : MonoBehaviour
         _verticalTween = _animator.DOFloat(kVerticalFloatHash, vertical, duration);
     }
 
-    private void OnEmailCaretMoved(Vector2 position)
+    private void SetHandsPosition(bool isUp)
+    {
+        _animator.SetBool(kIsHidingBoolHash, isUp);
+    }
+
+    private void OnEmailCaretMoved(Vector2 position, string _)
     {
         OnInputCaretMoved(position);
     }
 
-    private void OnEmailFocusChanged(bool state)
+    private void OnEmailFocusChanged(bool state, string _)
     {
-        OnFocusLose();
+        if (!state)
+            OnFocusLose();
     }
 
-    private void OnPasswordCaretMoved(Vector2 position)
+    private void OnPasswordCaretMoved(Vector2 position, string text)
     {
+        var isPasswordEmpty = text.IsPasswordEmpty();
+        SetHandsPosition(!isPasswordEmpty);
         OnInputCaretMoved(position);
     }
 
-    private void OnPasswordFocusChanged(bool state)
+    private void OnPasswordFocusChanged(bool state, string text)
     {
-        OnFocusLose();
+        var isPasswordEmpty = text.IsPasswordEmpty();
+        if (state)
+        {
+            if (!isPasswordEmpty)
+                SetHandsPosition(true);
+        }
+        else
+        {
+            OnFocusLose();
+            SetHandsPosition(false);
+        }
     }
 
     private void OnInputCaretMoved(Vector2 position)

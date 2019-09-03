@@ -4,8 +4,8 @@ using TMPro;
 
 public class InputTracker : MonoBehaviour
 {
-    public event Action<bool> onFocusChanged;
-    public event Action<Vector2> onCaretMoved;
+    public event Action<bool, string> onFocusChanged;
+    public event Action<Vector2, string> onCaretMoved;
 
     [SerializeField]
     private TMP_InputField _inputField;
@@ -13,6 +13,8 @@ public class InputTracker : MonoBehaviour
     private int _prevCaretPosition = int.MinValue;
     private TMP_Text _textField;
     private RectTransform _textRectTransform;
+
+    public TMP_InputField inputField => _inputField;
 
     private void Awake()
     {
@@ -38,20 +40,20 @@ public class InputTracker : MonoBehaviour
             {
                 var characterInfo = textInfo.characterInfo[caretPosition];
                 var originPosition = _textRectTransform.TransformPoint(new Vector3(characterInfo.origin, characterInfo.baseLine));
-                onCaretMoved?.Invoke(originPosition);
+                onCaretMoved?.Invoke(originPosition, _textField.text);
             }
         }
     }
 
-    private void OnSelect(string _)
+    private void OnSelect(string text)
     {
         enabled = true;
-        onFocusChanged?.Invoke(true);
+        onFocusChanged?.Invoke(true, text);
     }
 
-    private void OnDeselect(string _)
+    private void OnDeselect(string text)
     {
-        onFocusChanged?.Invoke(false);
+        onFocusChanged?.Invoke(false, text);
         enabled = false;
     }
 
