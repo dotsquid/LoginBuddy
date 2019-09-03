@@ -36,7 +36,7 @@ public class BuddyController : MonoBehaviour
         Unsubscribe();
     }
 
-    private (float, float) GetLookParams(Vector2 targetPosition)
+    private (float angle, float distance) GetLookParams(Vector2 targetPosition)
     {
         var dir = targetPosition - (Vector2)_eyesNormalCenter.position;
         var angle = Mathf.Atan2(dir.y, dir.x);
