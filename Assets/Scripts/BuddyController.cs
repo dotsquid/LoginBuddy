@@ -6,6 +6,7 @@ public class BuddyController : MonoBehaviour
     private static readonly int kHorizontalFloatHash = Animator.StringToHash("Horizontal");
     private static readonly int kVerticalFloatHash = Animator.StringToHash("Vertical");
     private static readonly int kIsHidingBoolHash = Animator.StringToHash("IsHiding");
+    private static readonly int kIsPryingBoolHash = Animator.StringToHash("IsPrying");
 
     [SerializeField]
     private Animator _animator;
@@ -13,6 +14,8 @@ public class BuddyController : MonoBehaviour
     private EmailTracker _emailTracker;
     [SerializeField]
     private PasswordTracker _passwordTracker;
+    [SerializeField]
+    private PasswordVisibilityController _passwordVisibility;
     [SerializeField]
     private Transform _uiTransform;
     [SerializeField]
@@ -62,6 +65,11 @@ public class BuddyController : MonoBehaviour
         _animator.SetBool(kIsHidingBoolHash, isUp);
     }
 
+    private void SetPryingState(bool isPrying)
+    {
+        _animator.SetBool(kIsPryingBoolHash, isPrying);
+    }
+
     private void OnEmailCaretMoved(Vector2 position, string _)
     {
         OnInputCaretMoved(position);
@@ -109,12 +117,19 @@ public class BuddyController : MonoBehaviour
         TurnHead(0.0f, 0.0f);
     }
 
+    private void OnPasswordVisibilityChanged(bool isOn)
+    {
+        SetHandsPosition(true);
+        SetPryingState(isOn);
+    }
+
     private void Subscribe()
     {
         _emailTracker.onCaretMoved += OnEmailCaretMoved;
         _emailTracker.onFocusChanged += OnEmailFocusChanged;
         _passwordTracker.onCaretMoved += OnPasswordCaretMoved;
         _passwordTracker.onFocusChanged += OnPasswordFocusChanged;
+        _passwordVisibility.onChange += OnPasswordVisibilityChanged;
     }
 
     private void Unsubscribe()
@@ -123,5 +138,6 @@ public class BuddyController : MonoBehaviour
         _emailTracker.onFocusChanged -= OnEmailFocusChanged;
         _passwordTracker.onCaretMoved -= OnPasswordCaretMoved;
         _passwordTracker.onFocusChanged -= OnPasswordFocusChanged;
+        _passwordVisibility.onChange -= OnPasswordVisibilityChanged;
     }
 }
