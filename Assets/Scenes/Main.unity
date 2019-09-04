@@ -174,6 +174,7 @@ MonoBehaviour:
   _image: {fileID: 52865999}
   _onSprite: {fileID: 21300000, guid: f9057966321e67e4da2d75232597645b, type: 3}
   _offSprite: {fileID: 21300000, guid: 51f54bae191819f4a8c53c026dced47e, type: 3}
+  _passwordField: {fileID: 1269944558}
 --- !u!114 &52865998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +224,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1269944556}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3739,6 +3751,7 @@ MonoBehaviour:
   _animator: {fileID: 585229772}
   _emailTracker: {fileID: 1855244364}
   _passwordTracker: {fileID: 1855244366}
+  _passwordVisibility: {fileID: 52865997}
   _uiTransform: {fileID: 1591131238}
   _eyesNormalCenter: {fileID: 1371735132}
   _lookVelocity: {x: 2, y: 4}
