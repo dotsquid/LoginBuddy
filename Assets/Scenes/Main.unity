@@ -968,7 +968,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 359.51447, y: 0}
+  m_AnchoredPosition: {x: 359.5268, y: 0}
   m_SizeDelta: {x: 760, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &299543657
@@ -1140,7 +1140,7 @@ RectTransform:
   m_GameObject: {fileID: 585229770}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.60295355, y: 0.60295355, z: 0}
+  m_LocalScale: {x: 0.6029837, y: 0.6029837, z: 0}
   m_Children:
   - {fileID: 1226989881}
   - {fileID: 1329444546}
@@ -3702,6 +3702,7 @@ GameObject:
   - component: {fileID: 1855244365}
   - component: {fileID: 1855244364}
   - component: {fileID: 1855244366}
+  - component: {fileID: 1855244367}
   m_Layer: 0
   m_Name: Control
   m_TagString: Untagged
@@ -3752,6 +3753,10 @@ MonoBehaviour:
   _emailTracker: {fileID: 1855244364}
   _passwordTracker: {fileID: 1855244366}
   _passwordVisibility: {fileID: 52865997}
+  _focusTracker: {fileID: 1855244367}
+  _passwordSelectables:
+  - {fileID: 1269944558}
+  - {fileID: 52865998}
   _uiTransform: {fileID: 1591131238}
   _eyesNormalCenter: {fileID: 1371735132}
   _lookVelocity: {x: 2, y: 4}
@@ -3770,6 +3775,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputField: {fileID: 1269944558}
+--- !u!114 &1855244367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855244362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e6ef03f746dec4fad3a98c0f45e29f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1856073144
 GameObject:
   m_ObjectHideFlags: 0

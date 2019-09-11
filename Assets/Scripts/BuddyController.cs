@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class BuddyController : MonoBehaviour
@@ -17,6 +19,10 @@ public class BuddyController : MonoBehaviour
     [SerializeField]
     private PasswordVisibilityController _passwordVisibility;
     [SerializeField]
+    private FocusTracker _focusTracker;
+    [SerializeField]
+    private Selectable[] _passwordSelectables;
+    [SerializeField]
     private Transform _uiTransform;
     [SerializeField]
     private Transform _eyesNormalCenter;
@@ -27,17 +33,24 @@ public class BuddyController : MonoBehaviour
     [SerializeField]
     private float _maxLookDistance = 700.0f;
 
+    private HashSet<Selectable> _passwordSelectablesSet;
     private Tween _horizontalTween;
     private Tween _verticalTween;
 
     private void Awake()
     {
+        InitPasswordSelectable();
         Subscribe();
     }
 
     private void OnDestroy()
     {
         Unsubscribe();
+    }
+
+    private void InitPasswordSelectable()
+    {
+        _passwordSelectablesSet = new HashSet<Selectable>(_passwordSelectables);
     }
 
     private (float angle, float distance) GetLookParams(Vector2 targetPosition)
@@ -83,13 +96,15 @@ public class BuddyController : MonoBehaviour
 
     private void OnPasswordCaretMoved(Vector2 position, string text)
     {
-        var isPasswordEmpty = text.IsPasswordEmpty();
-        SetHandsPosition(!isPasswordEmpty);
+        //var isPasswordEmpty = text.IsPasswordEmpty();
+        //SetHandsPosition(!isPasswordEmpty);
         OnInputCaretMoved(position);
     }
 
     private void OnPasswordFocusChanged(bool state, string text)
     {
+        return;
+
         var isPasswordEmpty = text.IsPasswordEmpty();
         if (state)
         {
@@ -119,8 +134,14 @@ public class BuddyController : MonoBehaviour
 
     private void OnPasswordVisibilityChanged(bool isOn)
     {
-        SetHandsPosition(true);
+        //SetHandsPosition(true);
         SetPryingState(isOn);
+    }
+
+    private void OnFocusChanged(Selectable selectable)
+    {
+        var isSelecteblePasswordRelated = _passwordSelectablesSet.Contains(selectable);
+        SetHandsPosition(isSelecteblePasswordRelated);
     }
 
     private void Subscribe()
@@ -130,6 +151,7 @@ public class BuddyController : MonoBehaviour
         _passwordTracker.onCaretMoved += OnPasswordCaretMoved;
         _passwordTracker.onFocusChanged += OnPasswordFocusChanged;
         _passwordVisibility.onChange += OnPasswordVisibilityChanged;
+        _focusTracker.onFocusChanged += OnFocusChanged;
     }
 
     private void Unsubscribe()
@@ -139,5 +161,6 @@ public class BuddyController : MonoBehaviour
         _passwordTracker.onCaretMoved -= OnPasswordCaretMoved;
         _passwordTracker.onFocusChanged -= OnPasswordFocusChanged;
         _passwordVisibility.onChange -= OnPasswordVisibilityChanged;
+        _focusTracker.onFocusChanged -= OnFocusChanged;
     }
 }
