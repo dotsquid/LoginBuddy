@@ -43,20 +43,25 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 690d25f59f13d8a40a361242305d73f3, type: 3}
-    totalSpriteSurfaceArea: 4843881
+    totalSpriteSurfaceArea: 4851873
     bindAsDefault: 1
+    storedHash:
+      serializedVersion: 2
+      Hash: 390fcfb7ffe741a77cf6a10d87fa9e6f
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: cb5948103dd645344acf549bb28930b4, type: 3}
   - {fileID: 21300000, guid: 99cab013648fa0542888917984b11468, type: 3}
   - {fileID: 21300000, guid: f8d51394dcb4e4d43a85d0891f68976b, type: 3}
   - {fileID: 21300000, guid: 64db0794fbb4e134caca6acf5938fa96, type: 3}
+  - {fileID: 21300000, guid: 725703d525043384e98b3fc542d6616f, type: 3}
   - {fileID: 21300000, guid: 7ecc3b47f0c161a458512319ee690b50, type: 3}
   - {fileID: 21300000, guid: 8e3cdb486ff600442adc33047bcc2fd4, type: 3}
+  - {fileID: 21300000, guid: 637c9c1a066a6744db0a9a866f90444b, type: 3}
   - {fileID: 21300000, guid: f5f6573a6311cc44e93d29cc945f5680, type: 3}
+  - {fileID: 21300000, guid: 6478aefbcdfb30f40a8cec8c815e1770, type: 3}
   - {fileID: 21300000, guid: 41e7731d144fa9f47a3d7ef89479bc3f, type: 3}
   - {fileID: 21300000, guid: 56eed72e618c00c47a6f78c3ba45172b, type: 3}
-  - {fileID: 21300000, guid: 8c9e93ae0dc53e646a0806f978edcb2c, type: 3}
   - {fileID: 21300000, guid: 0f38ce7fa9212ab4eae8ef47f237e924, type: 3}
   - {fileID: 21300000, guid: 964fed8ff75dd5448964f05257770460, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -64,12 +69,14 @@ SpriteAtlas:
   - Arm
   - Fingers
   - Blush
+  - Mouth_tongue
   - Eye_glare_large
   - Face
+  - Mouth_smile_wide
   - Hair_front
+  - Mouth_mask
   - Hair_back
   - Body
-  - Mouth_smile
   - Ear
   - Eye_glare_small
   m_Tag: Buddy
