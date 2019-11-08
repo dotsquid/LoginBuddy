@@ -9,6 +9,7 @@ public class BuddyController : MonoBehaviour
     private static readonly int kVerticalFloatHash = Animator.StringToHash("Vertical");
     private static readonly int kIsHidingBoolHash = Animator.StringToHash("IsHiding");
     private static readonly int kIsPryingBoolHash = Animator.StringToHash("IsPrying");
+    private static readonly int kExcitementIntHash = Animator.StringToHash("Excitement");
 
     [SerializeField]
     private Animator _animator;
@@ -127,6 +128,19 @@ public class BuddyController : MonoBehaviour
         TurnHead(horizontal, vertical);
     }
 
+    private void OnEmailContentChanged(string content)
+    {
+        int excitement = 0;
+        int atIndex = content.IndexOf('@');
+        bool hasAt = atIndex > 0 && atIndex < content.Length;
+        if (hasAt)
+            excitement += 1;
+        int dotIndex = content.IndexOf('.', hasAt ? atIndex : 0);
+        if (dotIndex > atIndex + 1)
+            excitement += 1;
+        _animator.SetInteger(kExcitementIntHash, excitement);
+    }
+
     private void OnFocusLose()
     {
         TurnHead(0.0f, 0.0f);
@@ -148,6 +162,7 @@ public class BuddyController : MonoBehaviour
     {
         _emailTracker.onCaretMoved += OnEmailCaretMoved;
         _emailTracker.onFocusChanged += OnEmailFocusChanged;
+        _emailTracker.onContentChanged += OnEmailContentChanged;
         _passwordTracker.onCaretMoved += OnPasswordCaretMoved;
         _passwordTracker.onFocusChanged += OnPasswordFocusChanged;
         _passwordVisibility.onChange += OnPasswordVisibilityChanged;
@@ -158,6 +173,7 @@ public class BuddyController : MonoBehaviour
     {
         _emailTracker.onCaretMoved -= OnEmailCaretMoved;
         _emailTracker.onFocusChanged -= OnEmailFocusChanged;
+        _emailTracker.onContentChanged -= OnEmailContentChanged;
         _passwordTracker.onCaretMoved -= OnPasswordCaretMoved;
         _passwordTracker.onFocusChanged -= OnPasswordFocusChanged;
         _passwordVisibility.onChange -= OnPasswordVisibilityChanged;
