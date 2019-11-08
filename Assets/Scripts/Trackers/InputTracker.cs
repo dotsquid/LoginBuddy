@@ -4,12 +4,16 @@ using TMPro;
 
 public class InputTracker : MonoBehaviour
 {
+    public event Action<string> onContentChanged;
     public event Action<bool, string> onFocusChanged;
-    public event Action<Vector2, string> onCaretMoved;
+    public event Action<Vector2> onCaretMoved;
 
     [SerializeField]
     private TMP_InputField _inputField;
 
+    private string _prevContent = string.Empty;
+    private int _prevContentHash = string.Empty.GetHashCode();
+    private int _prevContentLength = 0;
     private int _prevCaretPosition = int.MinValue;
     private TMP_Text _textField;
     private RectTransform _textRectTransform;
@@ -31,6 +35,12 @@ public class InputTracker : MonoBehaviour
 
     private void Update()
     {
+        CheckCaret();
+        CheckContent();
+    }
+
+    private void CheckCaret()
+    {
         var caretPosition = _inputField.caretPosition;
         if (_prevCaretPosition != caretPosition)
         {
@@ -40,7 +50,26 @@ public class InputTracker : MonoBehaviour
             {
                 var characterInfo = textInfo.characterInfo[caretPosition];
                 var originPosition = _textRectTransform.TransformPoint(new Vector3(characterInfo.origin, characterInfo.baseLine));
-                onCaretMoved?.Invoke(originPosition, _textField.text);
+                onCaretMoved?.Invoke(originPosition);
+            }
+        }
+    }
+
+    private void CheckContent()
+    {
+        var content = _textField.text;
+        var contentLength = content.Length;
+        if (contentLength != _prevContentLength)
+        {
+            var contentHash = content.GetHashCode();
+            bool isSame = (contentHash == _prevContentHash)
+                       && (content == _prevContent);
+            if (!isSame)
+            {
+                _prevContent = content;
+                _prevContentHash = contentHash;
+                _prevContentLength = contentLength;
+                onContentChanged?.Invoke(content);
             }
         }
     }

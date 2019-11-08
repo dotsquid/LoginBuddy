@@ -83,7 +83,7 @@ public class BuddyController : MonoBehaviour
         _animator.SetBool(kIsPryingBoolHash, isPrying);
     }
 
-    private void OnEmailCaretMoved(Vector2 position, string _)
+    private void OnEmailCaretMoved(Vector2 position)
     {
         OnInputCaretMoved(position);
     }
@@ -94,7 +94,7 @@ public class BuddyController : MonoBehaviour
             OnFocusLose();
     }
 
-    private void OnPasswordCaretMoved(Vector2 position, string text)
+    private void OnPasswordCaretMoved(Vector2 position)
     {
         //var isPasswordEmpty = text.IsPasswordEmpty();
         //SetHandsPosition(!isPasswordEmpty);
