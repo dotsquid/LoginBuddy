@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -10,6 +11,7 @@ public class BuddyController : MonoBehaviour
     private static readonly int kIsHidingBoolHash = Animator.StringToHash("IsHiding");
     private static readonly int kIsPryingBoolHash = Animator.StringToHash("IsPrying");
     private static readonly int kExcitementIntHash = Animator.StringToHash("Excitement");
+    private static readonly int kBlinkEyesTriggerHash = Animator.StringToHash("BlinkEyes");
 
     [SerializeField]
     private Animator _animator;
@@ -33,6 +35,15 @@ public class BuddyController : MonoBehaviour
     private float _lookForce = 1.2f;
     [SerializeField]
     private float _maxLookDistance = 700.0f;
+    [Header("Blinkig")]
+    [SerializeField, Range(0.0f, 1.0f)]
+    private float _doubleBlinkProbability = 0.1f;
+    [SerializeField]
+    private float _minBlinkPeriod = 1.0f;
+    [SerializeField]
+    private float _maxBlinkPeriod = 5.0f;
+    [SerializeField]
+    private AnimationCurve _blinkPeriodDistibution = AnimationCurve.Linear(0.0f, 0.0f, 1.0f, 1.0f);
 
     private HashSet<Selectable> _passwordSelectablesSet;
     private Tween _horizontalTween;
@@ -41,6 +52,7 @@ public class BuddyController : MonoBehaviour
     private void Awake()
     {
         InitPasswordSelectable();
+        StartCoroutine(BlinkCoroutine());
         Subscribe();
     }
 
@@ -156,6 +168,23 @@ public class BuddyController : MonoBehaviour
     {
         var isSelecteblePasswordRelated = _passwordSelectablesSet.Contains(selectable);
         SetHandsPosition(isSelecteblePasswordRelated);
+    }
+
+    private IEnumerator BlinkCoroutine()
+    {
+        while (true)
+        {
+            float periodT = _blinkPeriodDistibution.Evaluate(Random.value);
+            float period = Mathf.Lerp(_minBlinkPeriod, _maxBlinkPeriod, periodT);
+            yield return new WaitForSeconds(period);
+
+            _animator.SetTrigger(kBlinkEyesTriggerHash);
+            if (Random.value < _doubleBlinkProbability)
+            {
+                yield return null;
+                _animator.SetTrigger(kBlinkEyesTriggerHash);
+            }
+        }
     }
 
     private void Subscribe()
