@@ -10,6 +10,7 @@ public class BuddyController : MonoBehaviour
     private static readonly int kVerticalFloatHash = Animator.StringToHash("Vertical");
     private static readonly int kIsHidingBoolHash = Animator.StringToHash("IsHiding");
     private static readonly int kIsPryingBoolHash = Animator.StringToHash("IsPrying");
+    private static readonly int kIsAwaitingBoolHash = Animator.StringToHash("IsAwaiting");
     private static readonly int kExcitementIntHash = Animator.StringToHash("Excitement");
     private static readonly int kBlinkEyesTriggerHash = Animator.StringToHash("BlinkEyes");
 
@@ -35,7 +36,9 @@ public class BuddyController : MonoBehaviour
     private float _lookForce = 1.2f;
     [SerializeField]
     private float _maxLookDistance = 700.0f;
-    [Header("Blinkig")]
+    [SerializeField]
+    private float _awaitingDelay = 5.0f;
+    [Header("Blinking")]
     [SerializeField, Range(0.0f, 1.0f)]
     private float _doubleBlinkProbability = 0.1f;
     [SerializeField]
@@ -48,11 +51,12 @@ public class BuddyController : MonoBehaviour
     private HashSet<Selectable> _passwordSelectablesSet;
     private Tween _horizontalTween;
     private Tween _verticalTween;
+    private bool _isFocused;
 
     private void Awake()
     {
         InitPasswordSelectable();
-        StartCoroutine(BlinkCoroutine());
+        StartCoroutines();
         Subscribe();
     }
 
@@ -64,6 +68,12 @@ public class BuddyController : MonoBehaviour
     private void InitPasswordSelectable()
     {
         _passwordSelectablesSet = new HashSet<Selectable>(_passwordSelectables);
+    }
+
+    private void StartCoroutines()
+    {
+        StartCoroutine(BlinkCoroutine());
+        StartCoroutine(AwaitingCoroutine());
     }
 
     private (float angle, float distance) GetLookParams(Vector2 targetPosition)
@@ -103,8 +113,10 @@ public class BuddyController : MonoBehaviour
 
     private void OnEmailFocusChanged(bool state, string _)
     {
-        if (!state)
-            OnFocusLose();
+        if (state)
+            OnFocusTaken();
+        else
+            OnFocusLost();
     }
 
     private void OnPasswordCaretMoved(Vector2 position)
@@ -116,18 +128,17 @@ public class BuddyController : MonoBehaviour
 
     private void OnPasswordFocusChanged(bool state, string text)
     {
-        return;
-
         var isPasswordEmpty = text.IsPasswordEmpty();
         if (state)
         {
-            if (!isPasswordEmpty)
-                SetHandsPosition(true);
+            OnFocusTaken();
+            //if (!isPasswordEmpty)
+            //    SetHandsPosition(true);
         }
         else
         {
-            OnFocusLose();
-            SetHandsPosition(false);
+            OnFocusLost();
+            //SetHandsPosition(false);
         }
     }
 
@@ -153,8 +164,14 @@ public class BuddyController : MonoBehaviour
         _animator.SetInteger(kExcitementIntHash, excitement);
     }
 
-    private void OnFocusLose()
+    private void OnFocusTaken()
     {
+        _isFocused = true;
+    }
+
+    private void OnFocusLost()
+    {
+        _isFocused = false;
         TurnHead(0.0f, 0.0f);
     }
 
@@ -184,6 +201,31 @@ public class BuddyController : MonoBehaviour
                 yield return null;
                 _animator.SetTrigger(kBlinkEyesTriggerHash);
             }
+        }
+    }
+
+    private IEnumerator AwaitingCoroutine()
+    {
+        while (true)
+        {
+            float time = 0.0f;
+            while (_isFocused)
+                yield return null;
+
+            while (!_isFocused && time < _awaitingDelay)
+            {
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            if (!_isFocused)
+                _animator.SetBool(kIsAwaitingBoolHash, true);
+
+            while (!_isFocused)
+                yield return null;
+
+            if (_isFocused)
+                _animator.SetBool(kIsAwaitingBoolHash, false);
         }
     }
 
