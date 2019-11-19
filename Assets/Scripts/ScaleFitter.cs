@@ -5,6 +5,8 @@ public class ScaleFitter : MonoBehaviour
 {
     [SerializeField]
     private RectTransform _source;
+    [SerializeField]
+    private bool _preserveAspect;
 
     private RectTransform _target;
 
@@ -20,9 +22,14 @@ public class ScaleFitter : MonoBehaviour
 
     private void Update()
     {
-        var sourceSize = _source.rect.size;
         var targetSize = _target.rect.size;
-        var scale = sourceSize / targetSize;
-        _target.localScale = scale;
+        if (targetSize.x > 0.0f && targetSize.y > 0.0f)
+        {
+            var sourceSize = _source.rect.size;
+            var scale = sourceSize / targetSize;
+            if (_preserveAspect)
+                scale.x = scale.y = Mathf.Min(scale.x, scale.y);
+            _target.localScale = scale;
+        }
     }
 }
