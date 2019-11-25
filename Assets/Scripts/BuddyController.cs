@@ -121,25 +121,15 @@ public class BuddyController : MonoBehaviour
 
     private void OnPasswordCaretMoved(Vector2 position)
     {
-        //var isPasswordEmpty = text.IsPasswordEmpty();
-        //SetHandsPosition(!isPasswordEmpty);
         OnInputCaretMoved(position);
     }
 
     private void OnPasswordFocusChanged(bool state, string text)
     {
-        var isPasswordEmpty = text.IsPasswordEmpty();
         if (state)
-        {
             OnFocusTaken();
-            //if (!isPasswordEmpty)
-            //    SetHandsPosition(true);
-        }
         else
-        {
             OnFocusLost();
-            //SetHandsPosition(false);
-        }
     }
 
     private void OnInputCaretMoved(Vector2 position)
@@ -177,7 +167,6 @@ public class BuddyController : MonoBehaviour
 
     private void OnPasswordVisibilityChanged(bool isOn)
     {
-        //SetHandsPosition(true);
         SetPryingState(isOn);
     }
 
