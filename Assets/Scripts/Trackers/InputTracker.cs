@@ -39,6 +39,13 @@ public class InputTracker : MonoBehaviour
         CheckContent();
     }
 
+    public void EmptyContent()
+    {
+        _inputField.text = string.Empty;
+        if (!isActiveAndEnabled)
+            Update();
+    }
+
     private void CheckCaret()
     {
         var caretPosition = _inputField.caretPosition;

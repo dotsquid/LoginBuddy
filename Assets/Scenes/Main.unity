@@ -1462,7 +1462,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 560669991}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1855244368}
+        m_MethodName: Restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &560669991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4936,6 +4947,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e6ef03f746dec4fad3a98c0f45e29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1855244368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855244362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95d3d79d9a2219498012fc73056404d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1591131239}
+  _showDelay: 1
+  _restartDelay: 1.5
+  _emailInputField: {fileID: 260644129}
+  _passwordInputField: {fileID: 1269944558}
 --- !u!1 &1856073144
 GameObject:
   m_ObjectHideFlags: 0
