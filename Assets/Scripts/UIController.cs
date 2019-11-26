@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -12,11 +13,13 @@ public class UIController : MonoBehaviour
     private float _showDelay = 1.0f;
     [SerializeField]
     private float _restartDelay = 0.5f;
-    [Header("Form")]
+    [Header("Restart")]
     [SerializeField]
-    private EmailTracker _emailTracker;
+    private BuddyController _buddyController;
     [SerializeField]
-    private PasswordTracker _passwordTracker;
+    private TMP_InputField _emailInputField;
+    [SerializeField]
+    private TMP_InputField _passwordInputField;
 
     private Coroutine _restartCoroutine;
 
@@ -42,16 +45,18 @@ public class UIController : MonoBehaviour
             isHidden = _animator.GetCurrentAnimatorStateInfo(0).IsName(kHiddenStateName);
             yield return null;
         }
-        yield return new WaitForSeconds(_restartDelay);
+        RestartInternal();
 
-        ResetForm();
+        yield return new WaitForSeconds(_restartDelay);
         _animator.SetBool(kIsShownBoolHash, true);
         _restartCoroutine = null;
     }
 
-    private void ResetForm()
+    private void RestartInternal()
     {
-        _emailTracker.EmptyContent();
-        _passwordTracker.EmptyContent();
+        var empty = string.Empty;
+        _emailInputField.text = empty;
+        _passwordInputField.text = empty;
+        _buddyController.Restart();
     }
 }

@@ -52,6 +52,7 @@ public class BuddyController : MonoBehaviour
     private Tween _horizontalTween;
     private Tween _verticalTween;
     private bool _isFocused;
+    private bool _isAwaitingRestarted;
 
     private void Awake()
     {
@@ -63,6 +64,14 @@ public class BuddyController : MonoBehaviour
     private void OnDestroy()
     {
         Unsubscribe();
+    }
+
+    public void Restart()
+    {
+        _isAwaitingRestarted = true;
+        _animator.SetInteger(kExcitementIntHash, 0);
+        TurnHead(0.0f, 0.0f);
+        SetHandsPosition(false);
     }
 
     private void InitPasswordSelectable()
@@ -204,14 +213,20 @@ public class BuddyController : MonoBehaviour
             while (!_isFocused && time < _awaitingDelay)
             {
                 time += Time.deltaTime;
+                if (_isAwaitingRestarted)
+                {
+                    _isAwaitingRestarted = false;
+                    time = 0.0f;
+                }
                 yield return null;
             }
 
             if (!_isFocused)
                 _animator.SetBool(kIsAwaitingBoolHash, true);
 
-            while (!_isFocused)
+            while (!_isFocused && !_isAwaitingRestarted)
                 yield return null;
+            _isAwaitingRestarted = false;
 
             if (_isFocused)
                 _animator.SetBool(kIsAwaitingBoolHash, false);

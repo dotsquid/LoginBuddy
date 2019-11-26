@@ -1537,7 +1537,7 @@ RectTransform:
   m_GameObject: {fileID: 585229770}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8321071, y: 1.8321071, z: 0}
+  m_LocalScale: {x: 1.8293694, y: 1.8293694, z: 0}
   m_Children:
   - {fileID: 1226989881}
   - {fileID: 1329444546}
@@ -4962,6 +4962,7 @@ MonoBehaviour:
   _animator: {fileID: 1591131239}
   _showDelay: 1
   _restartDelay: 1.5
+  _buddyController: {fileID: 1855244365}
   _emailInputField: {fileID: 260644129}
   _passwordInputField: {fileID: 1269944558}
 --- !u!1 &1856073144
